@@ -61,7 +61,7 @@ fun MainScreen() {
         drawerContent = {
             Drawer(scope = scope, scaffoldState = scaffoldState, navController = navController)
         },
-        backgroundColor = colorResource(id = R.color.white)
+        backgroundColor = colorResource(id = R.color.white), drawerGesturesEnabled = scaffoldState.drawerState.isOpen
     ) { padding ->  // We need to pass scaffold's inner padding to content. That's why we use Box.
         Box(modifier = Modifier.padding(padding)) {
             Navigation(navController = navController)
@@ -79,7 +79,7 @@ fun MainScreenPreview() {
 @Composable
 fun TopBar(scope: CoroutineScope, scaffoldState: ScaffoldState) {
     TopAppBar(
-        title = { Text(text = stringResource(R.string.app_name), fontSize = 18.sp) },
+        title = { Text(text ="Dashboard", fontSize = 18.sp) },
         navigationIcon = {
             IconButton(onClick = {
                 scope.launch {

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -26,12 +27,23 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.basicjetpackapp.R
 import com.example.basicjetpackapp.ui.theme.BasicJetpackAppTheme
+import com.example.basicjetpackapp.viewmodels.MainViewModel
 
 class MainActivity : ComponentActivity() {
+
+    private val viewmodel by viewModels<MainViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        installSplashScreen().apply {
+            setKeepOnScreenCondition {
+                viewmodel.loading.value
+            }
+        }
+
         setContent {
             BasicJetpackAppTheme {
                 MainContent()
@@ -170,7 +182,7 @@ fun MainContent() {
                             Toast.makeText(context, "Work in Progress", Toast.LENGTH_SHORT)
                                 .show()
                         }) {
-                            Text(text = "SignUp Here" , color = Color.Black)
+                            Text(text = "SignUp Here", color = Color.Black)
                         }
                     }
 
